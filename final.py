@@ -51,8 +51,6 @@ RPS = 6.0   # Rotations per second
 RDIV = 40   # Number of radial divisions
 THDIV = 72  # Number of angle divisions
 
-from matrix import matrix
-
 def wheel(position):
     if position < 85:
         return ((position * 3) << 16) + ((255 - position * 3) << 8)
@@ -109,11 +107,12 @@ def color_wipe(color, wait):
         render()
         time.sleep(wait)
 
+import cache.avengers.cap as cap_mat
 # Wrap following code in a try/finally to ensure cleanup functions are called
 # after library is initialized.
 try:
     # color_wipe(0xffffff, 0.05)
-    disp_image(5000, matrix, loop=True)
+    disp_image(5000, cap_mat.matrix, loop=True)
 finally:
     # Ensure ws2811_fini is called before the program quits.
     ws.ws2811_fini(leds)
