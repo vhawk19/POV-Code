@@ -63,6 +63,20 @@ def wheel(position):
         position -= 170
         return ((position * 3) << 8) + (255 - position * 3)
 
+def rainbow(iterations, strip, wait):
+    for j in range(256 * iterations):
+        for i in range(LED_COUNT):
+            ws.ws2811_led_set(channel, i, wheel((i + j) & 255))
+        render()
+        time.sleep(wait)
+
+def rainbow_cycle(iterations, strip, wait):
+    for j in range(256 * iterations):
+        for i in range(LED_COUNT):
+            ws.ws2811_led_set(channel, i, wheel((int(i * 256 / strip.numPixels()) + j) & 255))
+        render()
+        time.sleep(wait)
+
 def disp_image(iterations, matrix, loop=False):
     thfactor = 360 // THDIV     # Angle per division
     elapsed_time = 0            # Time elapsed in each iteration

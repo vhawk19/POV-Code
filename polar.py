@@ -23,12 +23,11 @@ for i in range(th_res):
         radial.append(hex((rgb[1] << 16) + (rgb[0] << 8) + rgb[2]))
     matrix.append(radial)
 
-mat_file = open('matrix.py', 'w')
-mat_file.write('matrix = [\n')
+print('matrix = [')
 for i in range(th_res):
-    mat_file.write('    [ ')
+    print('    [',end=' ')
     for j in range(mat_size // 2):
-        mat_file.write(matrix[i][j] + ', ')
-    mat_file.write('],\n')
-mat_file.write(']')
+        print(matrix[i][j], end=', ')
+    print('],')
+print(']')
 
