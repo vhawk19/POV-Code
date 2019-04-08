@@ -51,41 +51,20 @@ def render():
 RPS = 6.0   # Rotations per second
 RDIV = 40   # Number of radial divisions
 THDIV = 72  # Number of angle divisions
+LOOP = True # Loop after completing one cycle
 
 def on_press(key):
+    global RPS
     try:
         if key.char == '+':
             RPS += 0.05
         elif key.char == '-':
             RPS -= 0.05
         
-        print('RPS = ' + RPS)
+        RPS = round(RPS, 2)
+        print(' RPS = {}'.format(RPS))
     except AttributeError:
         pass
-
-def wheel(position):
-    if position < 85:
-        return ((position * 3) << 16) + ((255 - position * 3) << 8)
-    elif position < 170:
-        position -= 85
-        return ((255 - position * 3) << 16) + (position * 3)
-    else:
-        position -= 170
-        return ((position * 3) << 8) + (255 - position * 3)
-
-def rainbow(iterations, strip, wait):
-    for j in range(256 * iterations):
-        for i in range(LED_COUNT):
-            ws.ws2811_led_set(channel, i, wheel((i + j) & 255))
-        render()
-        time.sleep(wait)
-
-def rainbow_cycle(iterations, strip, wait):
-    for j in range(256 * iterations):
-        for i in range(LED_COUNT):
-            ws.ws2811_led_set(channel, i, wheel((int(i * 256 / strip.numPixels()) + j) & 255))
-        render()
-        time.sleep(wait)
 
 def disp_image(iterations, matrix, loop=False):
     thfactor = 360 // THDIV     # Angle per division
@@ -98,11 +77,11 @@ def disp_image(iterations, matrix, loop=False):
         elapsed_time = time.perf_counter()
 
         for i in range(LED_COUNT//2, LED_COUNT):
-            color = matrix[theta//thfactor][i - LED_COUNT//2]
+            color = matrix[((theta//thfactor) + (180//thfactor)) % THDIV][i - LED_COUNT//2]
             ws.ws2811_led_set(channel, i, color)
         
         for i in range(0, LED_COUNT//2):
-            color = matrix[((theta//thfactor) + (180//thfactor)) % THDIV][LED_COUNT//2 - i - 1]
+            color = matrix[theta//thfactor][LED_COUNT//2 - i - 1]
             ws.ws2811_led_set(channel, i, color)
         
         render()
@@ -114,8 +93,9 @@ def disp_image(iterations, matrix, loop=False):
             iterations -= 1
 
 def color_wipe(color, wait):
-    for i in range(LED_COUNT):
-        ws.ws2811_led_set(channel, i, color)
+    for i in range(LED_COUNT//2):
+        ws.ws2811_led_set(channel, LED_COUNT//2 - i - 1, color)
+        ws.ws2811_led_set(channel, i + LED_COUNT//2, color)
         render()
         time.sleep(wait)
 
@@ -123,11 +103,17 @@ listener = Listener(on_press=on_press)
 listener.start()
 
 import cache.avengers.cap as cap_mat
+import cache.bot_body.bot as bot_mat
 # Wrap following code in a try/finally to ensure cleanup functions are called
 # after library is initialized.
 try:
-    # color_wipe(0xffffff, 0.05)
-    disp_image(5000, cap_mat.matrix, loop=True)
+    while True:
+        color_wipe(0xaf00d9, 0.05)
+        disp_image(5000, cap_mat.matrix)
+        disp_image(5000, bot_mat.matrix)
+
+        if not LOOP:
+            break
 finally:
     # Ensure ws2811_fini is called before the program quits.
     ws.ws2811_fini(leds)
