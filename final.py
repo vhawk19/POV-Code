@@ -53,13 +53,15 @@ RDIV = 40   # Number of radial divisions
 THDIV = 72  # Number of angle divisions
 
 def on_press(key):
+    global RPS
     try:
         if key.char == '+':
             RPS += 0.05
         elif key.char == '-':
             RPS -= 0.05
         
-        print('RPS = ' + RPS)
+        RPS = round(RPS, 2)
+        print(' RPS = {}'.format(RPS))
     except AttributeError:
         pass
 
@@ -98,11 +100,11 @@ def disp_image(iterations, matrix, loop=False):
         elapsed_time = time.perf_counter()
 
         for i in range(LED_COUNT//2, LED_COUNT):
-            color = matrix[theta//thfactor][i - LED_COUNT//2]
+            color = matrix[((theta//thfactor) + (180//thfactor)) % THDIV][i - LED_COUNT//2]
             ws.ws2811_led_set(channel, i, color)
         
         for i in range(0, LED_COUNT//2):
-            color = matrix[((theta//thfactor) + (180//thfactor)) % THDIV][LED_COUNT//2 - i - 1]
+            color = matrix[theta//thfactor][LED_COUNT//2 - i - 1]
             ws.ws2811_led_set(channel, i, color)
         
         render()
@@ -123,11 +125,12 @@ listener = Listener(on_press=on_press)
 listener.start()
 
 import cache.avengers.cap as cap_mat
+import cache.bot_body.bot as bot_mat
 # Wrap following code in a try/finally to ensure cleanup functions are called
 # after library is initialized.
 try:
     # color_wipe(0xffffff, 0.05)
-    disp_image(5000, cap_mat.matrix, loop=True)
+    disp_image(5000, bot_mat.matrix, loop=True)
 finally:
     # Ensure ws2811_fini is called before the program quits.
     ws.ws2811_fini(leds)
