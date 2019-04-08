@@ -1,5 +1,6 @@
 import time
 import _rpi_ws281x as ws
+from pynput.keyboard import Listener
 
 # LED configuration.
 LED_CHANNEL    = 0
@@ -50,6 +51,17 @@ def render():
 RPS = 6.0   # Rotations per second
 RDIV = 40   # Number of radial divisions
 THDIV = 72  # Number of angle divisions
+
+def on_press(key):
+    try:
+        if key.char == '+':
+            RPS += 0.05
+        elif key.char == '-':
+            RPS -= 0.05
+        
+        print('RPS = ' + RPS)
+    except AttributeError:
+        pass
 
 def wheel(position):
     if position < 85:
@@ -106,6 +118,9 @@ def color_wipe(color, wait):
         ws.ws2811_led_set(channel, i, color)
         render()
         time.sleep(wait)
+
+listener = Listener(on_press=on_press)
+listener.start()
 
 import cache.avengers.cap as cap_mat
 # Wrap following code in a try/finally to ensure cleanup functions are called
