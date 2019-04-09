@@ -51,4 +51,4 @@ def theaterChaseRainbow(strip, wait_ms=50):
     rainbowCycle(strip)
     theaterChaseRainbow(strip)
 
-    os.system("final.py")
+    os.execl('/usr/bin/env', 'env', 'python3', 'final.py')
