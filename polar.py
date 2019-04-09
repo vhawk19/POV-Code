@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageOps
 
 import sys
 import math
@@ -8,6 +8,7 @@ mat_size = int(sys.argv[2])
 th_res = int(sys.argv[3])
 
 im = im.resize((mat_size, mat_size), resample=Image.BICUBIC)
+im = ImageOps.mirror(im)
 c_x = im.size[0] // 2
 c_y = im.size[1] // 2
 th_mul = 360 // th_res
