@@ -102,23 +102,26 @@ def color_wipe(color, wait):
 listener = Listener(on_press=on_press)
 listener.start()
 
-import cache.logo.name as logo_mat
 import cache.avengers.cap as cap_mat
 import cache.bot_body.bot as bot_mat
 import cache.countdown.one as one_mat
 import cache.countdown.two as two_mat
 import cache.countdown.three as three_mat
+import cache.bot_face.sl_smile as sl_smile_mat
+import cache.bot_face.marshmallow as marshmallow_mat
+
 # Wrap following code in a try/finally to ensure cleanup functions are called
 # after library is initialized.
 try:
     while True:
         color_wipe(0xaf00d9, 0.05)
-        disp_image(2.0, logo_mat.matrix)
         disp_image(2.0, cap_mat.matrix)
         disp_image(2.0, three_mat.matrix)
         disp_image(2.0, two_mat.matrix)
         disp_image(3.0, one_mat.matrix)
         disp_image(6.0, bot_mat.matrix)
+        disp_image(3.0, sl_smile_mat.matrix)
+        disp_image(3.0, marshmallow_mat.matrix)
 
         if not LOOP:
             break
