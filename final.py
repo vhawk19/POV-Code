@@ -109,6 +109,9 @@ import cache.countdown.two as two_mat
 import cache.countdown.three as three_mat
 import cache.bot_face.sl_smile as sl_smile_mat
 import cache.bot_face.marshmallow as marshmallow_mat
+import cache.bot_face.meh as meh_mat
+import cache.bot_face.faint as faint_mat
+import cache.bot_face.wink_masc as wink_mat
 
 # Wrap following code in a try/finally to ensure cleanup functions are called
 # after library is initialized.
@@ -122,6 +125,9 @@ try:
         disp_image(6.0, bot_mat.matrix)
         disp_image(3.0, sl_smile_mat.matrix)
         disp_image(3.0, marshmallow_mat.matrix)
+        disp_image(3.0, meh_mat.matrix)
+        disp_image(3.0, faint_mat.matrix)
+        disp_image(3.0, wink_mat.matrix)
 
         if not LOOP:
             break
