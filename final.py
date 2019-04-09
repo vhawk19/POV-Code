@@ -48,7 +48,7 @@ def render():
         message = ws.ws2811_get_return_t_str(resp)
         raise RuntimeError('ws2811_render failed with code {0} ({1})'.format(resp, message))
 
-RPS = 6.0   # Rotations per second
+RPS = 7.15   # Rotations per second
 RDIV = 40   # Number of radial divisions
 THDIV = 72  # Number of angle divisions
 LOOP = True # Loop after completing one cycle
@@ -66,12 +66,12 @@ def on_press(key):
     except AttributeError:
         pass
 
-def disp_image(iterations, matrix, loop=False):
+def disp_image(time, matrix, loop=False):
     thfactor = 360 // THDIV     # Angle per division
     elapsed_time = 0            # Time elapsed in each iteration
     theta = 0                   # Current angle of blades
 
-    while iterations > 0:
+    while time > 0:
         theta += int(RPS * elapsed_time * 360)
         theta %= 360
         elapsed_time = time.perf_counter()
@@ -90,7 +90,7 @@ def disp_image(iterations, matrix, loop=False):
         elapsed_time = time.perf_counter() - elapsed_time
 
         if not loop:
-            iterations -= 1
+            time -= elapsed_time
 
 def color_wipe(color, wait):
     for i in range(LED_COUNT//2):
@@ -112,11 +112,11 @@ import cache.countdown.three as three_mat
 try:
     while True:
         color_wipe(0xaf00d9, 0.05)
-        disp_image(2000, cap_mat.matrix)
-        disp_image(1000, three_mat.matrix)
-        disp_image(1000, two_mat.matrix)
-        disp_image(1000, one_mat.matrix)
-        disp_image(5000, bot_mat.matrix)
+        disp_image(2.0, cap_mat.matrix)
+        disp_image(2.0, three_mat.matrix)
+        disp_image(2.0, two_mat.matrix)
+        disp_image(3.0, one_mat.matrix)
+        disp_image(6.0, bot_mat.matrix)
 
         if not LOOP:
             break
