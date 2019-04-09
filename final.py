@@ -66,12 +66,12 @@ def on_press(key):
     except AttributeError:
         pass
 
-def disp_image(time, matrix, loop=False):
+def disp_image(duration, matrix, loop=False):
     thfactor = 360 // THDIV     # Angle per division
     elapsed_time = 0            # Time elapsed in each iteration
     theta = 0                   # Current angle of blades
 
-    while time > 0:
+    while duration > 0:
         theta += int(RPS * elapsed_time * 360)
         theta %= 360
         elapsed_time = time.perf_counter()
@@ -90,7 +90,7 @@ def disp_image(time, matrix, loop=False):
         elapsed_time = time.perf_counter() - elapsed_time
 
         if not loop:
-            time -= elapsed_time
+            duration -= elapsed_time
 
 def color_wipe(color, wait):
     for i in range(LED_COUNT//2):
