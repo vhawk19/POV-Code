@@ -122,7 +122,7 @@ try:
         disp_image(2.0, three_mat.matrix)
         disp_image(2.0, two_mat.matrix)
         disp_image(3.0, one_mat.matrix)
-        disp_image(6.0, bot_mat.matrix)
+        disp_image(10.0, bot_mat.matrix)
         disp_image(3.0, sl_smile_mat.matrix)
         disp_image(3.0, marshmallow_mat.matrix)
         disp_image(3.0, meh_mat.matrix)
