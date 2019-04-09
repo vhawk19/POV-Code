@@ -7,7 +7,7 @@ im = Image.open(sys.argv[1])
 mat_size = int(sys.argv[2])
 th_res = int(sys.argv[3])
 
-im.resize((mat_size, mat_size), resample=Image.BICUBIC)
+im = im.resize((mat_size, mat_size), resample=Image.BICUBIC)
 c_x = im.size[0] // 2
 c_y = im.size[1] // 2
 th_mul = 360 // th_res
