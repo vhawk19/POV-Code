@@ -102,6 +102,7 @@ def color_wipe(color, wait):
 listener = Listener(on_press=on_press)
 listener.start()
 
+import cache.logo.name as logo_mat
 import cache.avengers.cap as cap_mat
 import cache.bot_body.bot as bot_mat
 import cache.countdown.one as one_mat
@@ -112,6 +113,7 @@ import cache.countdown.three as three_mat
 try:
     while True:
         color_wipe(0xaf00d9, 0.05)
+        disp_image(2.0, logo_mat.matrix)
         disp_image(2.0, cap_mat.matrix)
         disp_image(2.0, three_mat.matrix)
         disp_image(2.0, two_mat.matrix)
