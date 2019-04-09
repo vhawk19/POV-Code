@@ -145,12 +145,11 @@ try:
     while True:
         color_wipe(0xaf00d9, 0.05)
         #Rainbow
-        disp_image(5000, cap_mat.matrix)
         disp_image(5000, bot_mat.matrix)
         disp_image(5000, FAINT.matrix)
         disp_image(5000, meh.matrix)
-        disp_image(5000,MARSHMALLOW.matrix
-        disp_image(5000,Mugshot.matrix)
+        disp_image(5000, MARSHMALLOW.matrix
+        disp_image(5000, Mugshot.matrix)
         disp_image(5000, sl_smil_masc.matrix)
         disp_image(5000, sl_smile.matrix)
         disp_image(5000, sl_wink_masc.matrix)
