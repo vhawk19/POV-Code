@@ -104,12 +104,14 @@ listener.start()
 
 import cache.avengers.cap as cap_mat
 import cache.bot_body.bot as bot_mat
+import cache.countdown.one as one_mat
 # Wrap following code in a try/finally to ensure cleanup functions are called
 # after library is initialized.
 try:
     while True:
         color_wipe(0xaf00d9, 0.05)
         disp_image(5000, cap_mat.matrix)
+        disp_image(5000, one_mat.matrix)
         disp_image(5000, bot_mat.matrix)
 
         if not LOOP:
