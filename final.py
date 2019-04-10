@@ -48,7 +48,7 @@ def render():
         message = ws.ws2811_get_return_t_str(resp)
         raise RuntimeError('ws2811_render failed with code {0} ({1})'.format(resp, message))
 
-RPS = 7.15   # Rotations per second
+RPS = 7.1   # Rotations per second
 RDIV = 40   # Number of radial divisions
 THDIV = 72  # Number of angle divisions
 LOOP = True # Loop after completing one cycle
@@ -117,8 +117,8 @@ import cache.bot_face.wink_masc as wink_mat
 # after library is initialized.
 try:
     while True:
-        color_wipe(0xaf00d9, 0.05)
-        disp_image(2.0, cap_mat.matrix)
+        #color_wipe(0xaf00d9, 0.05)
+        #disp_image(2.0, cap_mat.matrix)
         disp_image(2.0, three_mat.matrix)
         disp_image(2.0, two_mat.matrix)
         disp_image(3.0, one_mat.matrix)
